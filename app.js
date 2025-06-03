@@ -33,16 +33,21 @@ app.post('/api/contact', async (req, res) => {
       return res.status(400).json({success: false, message: `Ruxsat berilmagan manzildan kelgan so'rov`});
     }
 
-    console.log(req.body)
     const {name, email, tgOrPhone, message} = req.body;
 
     // Ma'lumotlarni tekshirish
-    if (!name || !email || !message) {
+    if (!name || !tgOrPhone) {
       return res.status(400).json({success: false, message: 'Barcha maydonlarni to\'ldiring'});
     }
 
     // Telegram xabarini tayyorlash
-    const messageText = `🔔 *Yangi xabar!*\n\n👤 *Ism:* ${name}\n📧 *Email:* ${email}\n📱 *Telegram/Telefon:* ${tgOrPhone || 'Ko\'rsatilmagan'}\n\n💬 *Xabar:*\n${message}`;
+    const messageText = `
+    🔔 *Yangi xabar!* \n\n
+    👤 *Ism:* ${name}\n
+    📱 *Telegram/Telefon:* ${tgOrPhone || 'Ko\'rsatilmagan'} \n
+    📧 *Email:* ${email || 'Ko\'rsatilmagan'} \n\n
+    💬 *Xabar:*\n${message || 'Ko\'rsatilmagan'}
+    `;
 
     // Telegram orqali xabar yuborish
     await bot.sendMessage(chatId, messageText);
