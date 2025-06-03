@@ -39,7 +39,7 @@ app.post('/api/contact', async (req, res) => {
 
     // Ma'lumotlarni tekshirish
     if (!name || !tgOrPhone) {
-      return res.status(400).json({success: false, message: 'Barcha maydonlarni to\'ldiring'});
+      return res.status(400).json({success: false, message: 'Ism yoki telefon/telegram kiritilmagan!'});
     }
 
     // Telegram xabarini tayyorlash
