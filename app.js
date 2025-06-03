@@ -28,6 +28,15 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/api/test', async (req, res) => {
+  return res
+    .status(200)
+    .json({
+      success: true,
+      message: 'Server ishlayapti'
+    });
+})
+
 // Forma ma'lumotlarini qabul qiluvchi endpoint
 app.post('/api/contact', async (req, res) => {
   try {
