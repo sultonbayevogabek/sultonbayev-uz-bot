@@ -1,0 +1,28 @@
+{
+  "name": "sultonbayev-uz-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sultonbayevogabek/sultonbayev-uz-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sultonbayevogabek/sultonbayev-uz-bot/issues"
+  },
+  "type": "module",
+  "homepage": "https://github.com/sultonbayevogabek/sultonbayev-uz-bot#readme",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}
