@@ -1,10 +1,9 @@
 import dotenv from 'dotenv';
-// dotenv ni ishga tushirish
-dotenv.config();
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import TelegramBot from 'node-telegram-bot-api';
+// dotenv ni ishga tushirish
+dotenv.config();
 
 // Telegram bot yaratish
 const token = process.env.BOT_TOKEN;
@@ -30,9 +29,8 @@ app.use((req, res, next) => {
 // Forma ma'lumotlarini qabul qiluvchi endpoint
 app.post('/api/contact', async (req, res) => {
   try {
-    console.log('req', req.headers.origin);
     if (!['http://localhost:3000', 'https://sultonbayev.uz'].includes(req.headers.origin)) {
-      return res.status(400).json({success: false, message: 'not allowed' });
+      return res.status(400).json({success: false, message: `Ruxsat berilmagan manzildan kelgan so'rov`});
     }
 
     console.log(req.body)
