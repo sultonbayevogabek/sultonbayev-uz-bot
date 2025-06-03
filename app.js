@@ -4,7 +4,6 @@ dotenv.config();
 import express from "express";
 import bodyParser from "body-parser";
 import TelegramBot from "node-telegram-bot-api";
-
 const token = process.env.BOT_TOKEN;
 const chatId = process.env.CHAT_ID;
 const bot = new TelegramBot(token, { polling: false });
