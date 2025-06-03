@@ -43,13 +43,7 @@ app.post('/api/contact', async (req, res) => {
     }
 
     // Telegram xabarini tayyorlash
-    const messageText = `
-    🔔 *Yangi xabar!* \n\n
-    👤 *Ism:* ${name}\n
-    📱 *Telegram/Telefon:* ${tgOrPhone || 'Ko\'rsatilmagan'} \n
-    📧 *Email:* ${email || 'Ko\'rsatilmagan'} \n\n
-    💬 *Xabar:*\n${message || 'Ko\'rsatilmagan'}
-    `;
+    const messageText = `🔔 Yangi xabar! \n\n👤 Ism: ${name}\n📱 Telegram/Telefon:* ${tgOrPhone || 'Ko\'rsatilmagan'}\n📧 Elektron pochta: ${email || 'Ko\'rsatilmagan'}\n\n💬 Xabar: ${message || 'Ko\'rsatilmagan'}`;
 
     // Telegram orqali xabar yuborish
     await bot.sendMessage(chatId, messageText);
