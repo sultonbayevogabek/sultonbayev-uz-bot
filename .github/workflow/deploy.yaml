@@ -1,0 +1,57 @@
+name: Deploy Telegram bot to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: SSH to Server and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            if ! command -v node &> /dev/null
+            then
+              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+
+            if ! command -v pm2 &> /dev/null
+            then
+              sudo npm install -g pm2
+            fi
+
+            cd /home/${{ secrets.SERVER_USER }}
+
+            if [ ! -d "sultonbayev-uz-bot" ]; then
+              git clone https://github.com/sultonbayevogabek/sultonbayev-uz-bot.git
+            fi
+
+            cd sultonbayev-uz-bot
+            git reset --hard HEAD
+            git pull origin main
+
+            rm -rf node_modules app
+
+            npm install
+
+            npm run build
+
+            cat > .env <<EOL
+            PORT=${{ secrets.PORT }}
+            BOT_TOKEN=${{ secrets.BOT_TOKEN }}
+            CHAT_ID=${{ secrets.CHAT_ID }}
+            EOL
+
+            pm2 stop sultonbayev-uz-bot || true
+            pm2 start app.js --name sultonbayev-uz-bot
+            pm2 save
