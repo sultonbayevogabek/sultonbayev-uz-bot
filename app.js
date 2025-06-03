@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 app.post('/api/contact', async (req, res) => {
   try {
     console.log('req', req.headers.origin);
-    if (!['http://localhost:3000'].includes(req.headers.origin)) {
+    if (!['http://localhost:3000', 'https://sultonbayev.uz'].includes(req.headers.origin)) {
       return res.status(400).json({success: false, message: 'not allowed' });
     }
 
